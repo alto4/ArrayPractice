@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Methods</title>
+</head>
+
+<body>
+    <h1>JavaScript Array Methods</h1>
+    <p>This page will summarize and provide an example of some of the most commonly used JS array methods.</p>
+    <ol>
+        <li>Push - add one or more elements to the array's end and returns the new array length <p>i.e. numbers.push(5);
+            </p>
+        </li>
+        <li>Pop - removes last item in the array and returns the removed element <p>i.e. numbers.pop();</p>
+        </li>
+        <li>Shift - removes the first item in the array <p>i.e. numbers.shift() - returns 1</p>
+        </li>
+        <li>Unshift - adds one or more elements to the beginning of the array (starting with the last element being
+            added first) and returns the new array length <p>i.e. numbers.unshift(-1, 0) - numbers = [-1, 0, 1, 2, 3]
+                and returns 5</p>
+        </li>
+        <li>forEach - loops through each element/item in an array and applies the same operations of each item <p>//
+                Using forEach to count the sum of an array
+                let sum = 0;
+                numbers.forEach((item, index, arr) => {
+                console.log(item)
+                sum += item;
+                });
+
+                // Using forEach to log number of instances of each letter/initialize if no appearances have yet occured
+                let count = {};
+                letters.forEach(letter => {
+                if (count[letter]) {
+                count[letter]++;
+                } else {
+                count[letter] = 1;
+                }
+                });</p>
+        </li>
+        <li>Map - executes a function on every element in an array and returns a new array with the results without
+            changing the original array <p>i.e. // 6. map
+                // Function to double values passed in
+                function double(value, index, arr) {
+                return value * 2;
+                }
+
+                // Apply double function to each item in numbers array
+                const doubledNumbers = numbers.map(double);
+
+                // Function to multiply each value by its index number
+                function multiply(value, index, arr) {
+                return value * index;
+                }
+
+                // Apply multiply function to each item in numbers array
+                const multipliedNumbers = numbers.map(multiply);
+
+                // An array of product objects
+                const products = [{
+                name: 'laptop',
+                price: 1000,
+                count: 5
+                },
+                {
+                name: 'desktop',
+                price: 1500,
+                count: 2
+                },
+                {
+                name: 'phone',
+                price: 500,
+                count: 10
+                }
+                ];
+
+                // Using map and an arrow function, calculate the value of each products inventory (price * count for
+                each product) and return as an object with productName and totalValue
+                const totalProductsValue = products.map(item => ({
+                name: item.name,
+                totalValue: item.price * item.count
+                }));
+
+                // Convert an array of string numbers into numbers using the Number object
+                const numberString = ['1', '2', '3', '4', '5'];
+                const numberArray = numberString.map(Number);</p>
+        </li>
+        <li>Filter - returns a new array based on conditional statement where all values from the original array that
+            return false are removed from the generated array. The original array remains untouched. <p>i.e. // 7.
+                filter
+                const evenNumbers = numbers.filter(isEven);
+
+                function isEven(value) {
+                return value % 2 === 0;
+                }
+
+                // Filter out adults from an array of objects containing name and age
+                const people = [{
+                name: 'Scott',
+                age: 26
+                },
+                {
+                name: 'Shannon',
+                age: 27
+                },
+                {
+                name: 'Avery',
+                age: 3
+                }
+                ];
+
+                const adults = people.filter(person => person.age >= 18);
+
+                // Remove duplicates from an array
+                const numbers2 = [1, 2, 3, 3, 1, 2, 5, 1, 3, 4];
+
+                // Since indexOf only returns the first matching value in an array, if the value reappears, it will
+                evaluate as false because its index will be different from the first appearance of the shared value
+                const numbersWithoutDuplicates = numbers2.filter((value, index, arr) => {
+                return arr.indexOf(value) === index;
+                });</p>
+        </li>
+        <li>Reduce - executes a callback function on every element in an array and returns a single output value. Takes
+            in a callback and original value <p>i.e. // 8. Reduce - add all numbers up into a total variable
+                // First parameter is the callback function, second optional value is the starting point for the
+                accumulator
+                const total = numbers.reduce(reduceSum, 0);
+
+                function reduceSum(accumulator, value) {
+                // On each iteration in reduce function add the value to the existing accumulator value
+                return accumulator + value;
+                }</p>
+        </li>
+        <li>Slice - returns a shallow copy of a portion of an array without altering the original array. The first
+            argument as starting index and last number as the ending point (non-inclusive). If no parameters are
+            included, the whole array will be copied and negative numbers can also be used to retrieve elements from the
+            end of the array. <p>// Create a new array with numbers 2-4
+                const numbersSliced = numbers.slice(1, 4);
+                // Grab the last 2 numbers from the array
+                const lastTwo = numbers.slice(-2);</p>
+        </li>
+        <li>Splice - removes or replaces existing elements from an array. Takes in a starting index, count of elements
+            to be removed, and optionally, elements to be added at the starting index. Unlike many other array methods,
+            splice DOES alter the original array and returns a new array containing the removed elements. <p>i.e. // 10.
+                Splice - remove the last three numbers from an array and stored in a new array
+                // In this case, 3 elements are removed starting with index 2, and the numbers 6 and 7 are added to the
+                original array
+                const removed = numbers.splice(2, 3, 6, 7);
+
+                // To easily add in elements in the middle of an array, simply set the number of elements to remove to 0
+                numbers.splice(2, 0, 3, 4, 5);</p>
+        </li>
+        <li>Sort - sorts elements of an array, by default ascending using UTF-16 codes. <p>i.e. // Sort an array of
+                numbers - becomes trickier as all elements are converted to strings (non-numeric)
+                // Fortunately, it is possible to create a sort function/algorithm
+                const randomNumbers = [3, 88, 982, 19, 3];
+
+                randomNumbers.sort(compareFunction);
+                // Function containing sort algorithm - in this case ordering numbers from smallest to largest
+                function compareFunction(a, b) {
+                return a - b;
+                }</p>
+        </li>
+        <li>Concat - merges two or more arrays into a single array, and may also be used the same as the push method to
+            add elements to the end of an array. <p>i.e. combine three arrays into one merged array
+                const a = [1, 2, 3];
+                const b = [4, 5, 6];
+                const c = [7, 8, 9];
+
+                const d = a.concat(b, c);
+
+                // Concat can also be used similarly to push
+                const e = d.concat(10, 11, 12);</p>
+        </li>
+        <li>Fill - changes the value of all array elements to a specified value, and optionally takes in starting and
+            ending indexes to be filled. <p>i.e //numbers.fill(4);
+
+                // fill has optional start and end parameters - for example, this will change index 2-5 (upper not
+                inclusive) to the value of 4
+                numbers.fill(4, 2, 5)</p>
+        </li>
+        <li>Includes - determines if an item exists within an array. <p>i.e. const fruits = ['orange', 'kiwi', 'mango'];
+                console.log(fruits.includes('kiwi')); // returns true
+                console.log(fruits.includes('banana')); // returns false</p>
+        </li>
+        <li>Join - creates a new string by concatenating all elements in an array. By default, join uses a comma as the
+            separator, but this may be specified as well.</li>
+        <li>Reverse - reverses the order of elements in an array and DOES change to original array. Can also be used to
+            create a new array without altering the original by using a spread operator, or .concat() to create a
+            'shallow array' to manipulate without altering the source. <p>i.e. // Reverse all characters in a string
+                const str = 'I love Toronto';
+                const reverse = str.split('').reverse().join('');</p>
+        </li>
+        <li>indexOf and lastIndexOf - returns the first/last index that a search parameter matches. indexOf is also
+            useful for determining whether or not an item exists in an array - will return -1 if not found. <p>let index
+                = names.indexOf('Shannon');
+
+                // Also useful for determining whether or not an item exists in an array - will return -1 if not found
+                if (index > -1) {
+                console.log('Item was found!');
+                } else {
+                console.log('Sorry, this item was not found.')</p>
+        </li>
+        <li>Every - performs a callback function on each item in an array. Will only return true if EVERY value returns
+            true for the search parameters. <p>i.e. // Check if all numbers in an array are positive
+                const result = numbers.every(isPositive);
+
+                function isPositive(item) {
+                return item > 0;
+                }</p>
+        </li>
+        <li>Some - performs a callback function on each item in an array. Will return true if at least ONE value returns
+            true for the search parameters. <p>i.e. // Check if a number that is greater than 4 exists in an array
+                numbers.some(greaterThanFour);
+
+                // Callback function to check if numbers are greater than 4
+                function greaterThanFour(item) {
+                return item > 4;
+                }
+
+                // Check if at least one person from an array of objects in an adult
+                people.some(isAdult);
+
+                // Callback function to check if person is an adult
+                function isAdult(person) {
+                return person.age >= 18;
+                }</p>
+        </li>
+        <li>Find - returns the first value that matches/returns true for a search callback function <p>i.e. // Determine
+                the existence of a name within an array
+                names.find(findShannon);
+
+                function findShannon(item) {
+                return item === 'Shannon';
+                }</p>
+        </li>
+        <li>findIndex - very similar to find method, but rather than returning the actual matching value, it returns the
+            index that the value is found at.</li>
+        <li>Array.from - creates a new shallow array from an array-like object/iterable (i.e. string, nodelist, etc.)
+            <p>i.e. const numbersString = '123456789';
+
+                // Convert all string integers into numeric values
+                numbersAsIntegers = Array.from(numbersString, mapFn);
+
+                // Callback function to convert each array element into a number using the Number object
+                function mapFn(x) {
+                return Number(x);
+                }
+
+                // Remove all duplicated values
+                const noDuplicates = Array.from(new Set(numbers));</p>
+        </li>
+        <li>isArray - checks if the passed value is an array and returns a boolean value.</li>
+        <li>Flat - recursively creates a new array with all sub-array elements concatenated into it. Depth may be
+            specified in this method. By default, the flat method will only operate on one layer within a nested array.
+        </li>
+    </ol>
+</body>
+<script>
+    const numbers = [1, 2, 3, 4, 5];
+    const letters = ['a', 'b', 'c', 'd', 'a', 'c', 'b'];
+
+    // 5. forEach
+    // Using forEach to count the sum of an array
+    let sum = 0;
+    numbers.forEach((item, index, arr) => {
+        console.log(item)
+        sum += item;
+    });
+
+    // Using forEach to log number of instances of each letter/initialize if no appearances have yet occured
+    let count = {};
+    letters.forEach(letter => {
+        if (count[letter]) {
+            count[letter]++;
+        } else {
+            count[letter] = 1;
+        }
+    });
+
+    // 6. map 
+    // Function to double values passed in
+    function double(value, index, arr) {
+        return value * 2;
+    }
+
+    // Apply double function to each item in numbers array
+    const doubledNumbers = numbers.map(double);
+
+    // Function to multiply each value by its index number
+    function multiply(value, index, arr) {
+        return value * index;
+    }
+
+    // Apply multiply function to each item in numbers array
+    const multipliedNumbers = numbers.map(multiply);
+
+    // An array of product objects
+    const products = [{
+            name: 'laptop',
+            price: 1000,
+            count: 5
+        },
+        {
+            name: 'desktop',
+            price: 1500,
+            count: 2
+        },
+        {
+            name: 'phone',
+            price: 500,
+            count: 10
+        }
+    ];
+
+    // Using map and an arrow function, calculate the value of each products inventory (price * count for each product) and return as an object with productName and totalValue
+    const totalProductsValue = products.map(item => ({
+        name: item.name,
+        totalValue: item.price * item.count
+    }));
+
+    // Convert an array of string numbers into numbers using the Number object
+    const numberString = ['1', '2', '3', '4', '5'];
+    const numberArray = numberString.map(Number);
+
+    // 7. filter
+    const evenNumbers = numbers.filter(isEven);
+
+    function isEven(value) {
+        return value % 2 === 0;
+    }
+
+    // Filter out adults from an array of objects containing name and age
+    const people = [{
+            name: 'Scott',
+            age: 26
+        },
+        {
+            name: 'Shannon',
+            age: 27
+        },
+        {
+            name: 'Avery',
+            age: 3
+        }
+    ];
+
+    const adults = people.filter(person => person.age >= 18);
+
+    // Remove duplicates from an array
+    const numbers2 = [1, 2, 3, 3, 1, 2, 5, 1, 3, 4];
+
+    // Since indexOf only returns the first matching value in an array, if the value reappears, it will evaluate as false because its index will be different from the first appearance of the shared value
+    const numbersWithoutDuplicates = numbers2.filter((value, index, arr) => {
+        return arr.indexOf(value) === index;
+    });
+
+    // 8. Reduce - add all numbers up into a total variable
+    // First parameter is the callback function, second optional value is the starting point for the accumulator
+    const total = numbers.reduce(reduceSum, 0);
+
+    function reduceSum(accumulator, value) {
+        // On each iteration in reduce function add the value to the existing accumulator value
+        return accumulator + value;
+    }
+
+    // Use reduce on the products array of objects to calculate the total inventory value for all products in stock
+    const totalInventoryValue = products.reduce((accumulator, item) => accumulator + (item.price * item.count), 0);
+
+    // 9. Slice - returns a portion of an array with first argument as starting index and last number as the ending point (non-inclusive)
+    // Create a new array with numbers 2-4 
+    const numbersSliced = numbers.slice(1, 4);
+    // Grab the last 2 numbers from the array
+    const lastTwo = numbers.slice(-2);
+
+    // 10. Splice - remove the last three numbers from an array and stored in a new array 
+    // In this case, 3 elements are removed starting with index 2, and the numbers 6 and 7 are added to the original array 
+    const removed = numbers.splice(2, 3, 6, 7);
+
+    // To easily add in elements in the middle of an array, simply set the number of elements to remove to 0
+    numbers.splice(2, 0, 3, 4, 5);
+
+    // 11. Sort - sort an array of names
+    const names = ['Scott', 'Shannon', 'Alfred', 'Afie', 'Shaniqua'];
+    // By default, place names in alphabetical order
+    names.sort()
+
+    // Sort an array of numbers - becomes trickier as all elements are converted to strings (non-numeric)
+    // Fortunately, it is possible to create a sort function/algorithm
+    const randomNumbers = [3, 88, 982, 19, 3];
+
+    randomNumbers.sort(compareFunction);
+    // Function containing sort algorithm - in this case ordering numbers from smallest to largest
+    function compareFunction(a, b) {
+        return a - b;
+    }
+
+    // 12. Concat - combine three arrays into one merged array
+    const a = [1, 2, 3];
+    const b = [4, 5, 6];
+    const c = [7, 8, 9];
+
+    const d = a.concat(b, c);
+
+    // Concat can also be used similarly to push 
+    const e = d.concat(10, 11, 12);
+
+    // 13. fill - changes the value of all elements in an array to specified value and then returns the modified array. 
+    //numbers.fill(4);
+
+    // fill has optional start and end parameters - for example, this will change index 2-5 (upper not inclusive) to the value of 4
+    numbers.fill(4, 2, 5)
+
+    // 14. includes
+    const fruits = ['orange', 'kiwi', 'mango'];
+    console.log(fruits.includes('kiwi')); // returns true
+    console.log(fruits.includes('banana')); // returns false
+
+    // 15. join
+    let joinedLetters = letters.join(' - ');
+
+    // 16. reverse
+    //  Reverse all characters in a string
+    const str = 'I love Toronto';
+    const reverse = str.split('').reverse().join('');
+
+    // 17. indexOf
+    let index = names.indexOf('Shannon');
+
+    // Also useful for determining whether or not an item exists in an array - will return -1 if not found
+    if (index > -1) {
+        console.log('Item was found!');
+    } else {
+        console.log('Sorry, this item was not found.')
+    }
+
+    // 18. every
+    // Check if all numbers in an array are positive
+    const result = numbers.every(isPositive);
+
+    // Callback function to check if numbers are positive or not 
+    function isPositive(item) {
+        return item > 0;
+    }
+
+    // 19. some 
+    // Check if a number that is greater than 4 exists in an array
+    numbers.some(greaterThanFour);
+
+    // Callback function to check if numbers are greater than 4
+    function greaterThanFour(item) {
+        return item > 4;
+    }
+
+    // Check if at least one person from an array of objects in an adult
+    people.some(isAdult);
+
+    // Callback function to check if person is an adult
+    function isAdult(person) {
+        return person.age >= 18;
+    }
+
+    // 20. find 
+    // Determine the existence of a name within an array
+    names.find(findShannon);
+
+    function findShannon(item) {
+        return item === 'Shannon';
+    }
+
+    // 21. findIndex
+    let indexOfFour = numbers.findIndex(findFour);
+
+    // Callback function to search for the index of 3
+    function findFour(value) {
+        return value === 4;
+    }
+
+    // 22. Array.from 
+    const numbersString = '123456789';
+
+    // Convert all string integers into numeric values
+    numbersAsIntegers = Array.from(numbersString, mapFn);
+
+    // Callback function to convert each array element into a number using the Number object
+    function mapFn(x) {
+        return Number(x);
+    }
+
+    // Remove all duplicated values 
+    const noDuplicates = Array.from(new Set(numbers));
+</script>
+
+</html>
